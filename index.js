@@ -14,9 +14,13 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/api', (req, res) => {
-  res.json({"msg": "Hello world"});
+app.get('/news', (req, res) => {
+  res.render('news');
 });
+app.get('/register', (req, res) => {
+  res.render('register');
+});
+
 
 app.listen(port, () => {
   console.log(`Listening on http://localhost:${port}`);
