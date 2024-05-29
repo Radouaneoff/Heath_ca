@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+     <style>
+        /* Define the background color for focused buttons */
+        .btn:focus {
+          background-color: #a5c422; /* Change this to the desired color */
+          outline: none;
+          color : #fff; /* Remove the default focus outline */
+        }
+      </style>
+    <title>Register</title>
+</head>
+<body>
+
+     <%- include('./parts/navbar') %>
+
+   <!-- middle -->
+   <section id="appointment" data-stellar-background-ratio="3">
+
+    <div class="container mt-5">
+        <div class="row text-center">
+          <div class="col-md-6 mb-3">
+            <select class="form-control bg-black text-white">
+              <option>General Health</option>
+              <option>Cardiology</option>
+              <option>Dental</option>
+              <option>Medical Research</option>
+            </select>
+          </div>
+          <div class="col-md-6 h-100">
+            <div class="btn-group " role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-green h-100">Sunday</button>
+              <button type="button" class="btn btn-green">Monday</button>
+              <button type="button" class="btn btn-green">Tuesday</button>
+              <button type="button" class="btn btn-green">Wednesday</button>
+              <button type="button" class="btn btn-green">Thursday</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="container">
+        <div class="flex f-d-r mb-3">
+            <div class="p-2">Flex item 1</div>
+            <div class="p-2">Flex item 2</div>
+            <div class="p-2">Flex item 3</div>
+          </div>
+    </div>
+
+</section>
+<!-- middle -->
+   <%- include('./parts/footer') %>
+
+</body>
+</html>
