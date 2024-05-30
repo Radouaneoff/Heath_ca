@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style/remixicon.css">
+     <link rel="stylesheet" href="/style/bootstrap.min.css">
+     <link rel="stylesheet" href="/style/font-awesome.min.css">
+     <link rel="stylesheet" href="/style/animate.css">
+     <link rel="stylesheet" href="/style/owl.carousel.css">
+     <link rel="stylesheet" href="/style/owl.theme.default.min.css">
+     <script src="./script.js" defer></script>
+
+     <link rel="stylesheet" href="/style/tooplate-style.css">
+    <title>Make an appointment</title>
+</head>
+<body>
+     <%- include('./parts/navbar_users') %>
+
+    <section id="appointment" data-stellar-background-ratio="3">
+        <div class="container">
+             <div class="row">
+
+                  <div class="col-md-6 col-sm-6">
+                       <img src="/images/appointment-image.jpg" class="img-responsive" alt="">
+                  </div>
+
+                  <div class="col-md-6 col-sm-6">
+                       <form action="/register" id="appointment-form" role="form" method="post" >
+
+                            <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
+                                 <h2>Make an appointment</h2>
+                            </div>
+
+                            <div class="wow fadeInUp" data-wow-delay="0.8s">
+                              <% if (error) { %>
+                                   <div class="alert alert-warning" role="alert">
+                                       Something went worng, please try again.
+                                   </div>
+                               <% } %>
+                                 <div class="col-md-6 col-sm-6">
+                                      <label for="name">Full name</label>
+                                      <input type="text" class="form-control" id="name" name="fullname" placeholder="Full Name">
+                                 </div>
+
+                                 <div class="col-md-6 col-sm-6">
+                                      <label for="email">Email</label>
+                                      <input type="email" class="form-control" id="email" name="email" placeholder="Your Email">
+                                 </div>
+
+                                 
+                                 <div class="col-md-12 col-sm-12">
+                                      <label for="password">Password</label>
+                                      <input type="password" name="password" value="" placeholder="Your password" class="form-control">
+                                 </div>
+
+                                 
+                                 <div class="col-md-12 col-sm-12">
+                                      <label for="telephone">Phone Number</label>
+                                      <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">   
+                                      <button type="submit" class="form-control" id="cf-submit">Send your information</button>
+                                 </div>
+                            </div>
+                      </form>
+                  </div>
+
+             </div>
+        </div>
+   </section>
+   <%- include('./parts/footer') %>
+</body>
+</html>

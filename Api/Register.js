@@ -2,7 +2,6 @@ const pool = require("./connection");
 
 async function Register (req,res){
     const {fullname, email, password, phone} = req.body;
-    console.log(req.body);
     if(fullname ==undefined || email ==undefined || password==undefined ||phone ==undefined){
         res.render('register', { error: true });
     }else{
@@ -13,8 +12,7 @@ async function Register (req,res){
         } catch (err) {
             console.log(err);
             res.render('register', { error: true });
-            
-        }
+            }
     }
 }
 
