@@ -5,11 +5,7 @@
       
      <style>
         /* Define the background color for focused buttons */
-        .btn:focus {
-          background-color: #a5c422; /* Change this to the desired color */
-          outline: none;
-          color : #fff; /* Remove the default focus outline */
-        }
+        
       </style>
     <title>Register</title>
 </head>
@@ -22,28 +18,37 @@
    <!-- middle -->
    <section id="appointment" data-stellar-background-ratio="3">
 
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">List of all appointment</h2>
+          
+          </div>
+          </div>
+    </div>
 
 
-
-    <div class="container mt-5">
+    <div class="container mt-1">
         <div class="row text-center">
-          <div class="col-md-6 mb-3">
-            <select class="form-control bg-black text-white">
-              <option>General Health</option>
-              <option>Cardiology</option>
-              <option>Dental</option>
-              <option>Medical Research</option>
-            </select>
-          </div>
-          <div class="col-md-6 h-100">
-            <div class="btn-group " role="group" aria-label="Basic example">
-              <button type="button" class="btn btn-green h-100">Sunday</button>
-              <button type="button" class="btn btn-green">Monday</button>
-              <button type="button" class="btn btn-green">Tuesday</button>
-              <button type="button" class="btn btn-green">Wednesday</button>
-              <button type="button" class="btn btn-green">Thursday</button>
+          <div class="row text-center">
+            <div class="col-md-6 mb-3">
+                <select name="healthTopic" class="form-control bg-black text-white">
+                    <option value="General Health">General Health</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Dental">Dental</option>
+                    <option value="Medical Research">Medical Research</option>
+                </select>
             </div>
-          </div>
+            <div class="col-md-6 mb-3">
+                <select name="appointmentDay" class="form-control bg-black text-white">
+                    <option value="Sunday">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                </select>
+            </div>
+        </div>
         </div>
       
         <table class="table table-hover table-nowrap">
@@ -62,7 +67,7 @@
                 <td> ucef boudia </td>
                 <td>u.boudia@gmai.com</td>
                 <td> Feb 15, 2021</td>
-                <td class="text-end"><button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover"><i class="fa fa-trash-o" aria-hidden="false"></i></button></td>
+                <td class="text-end"><button type="button" class="btn btn-sm  btn-danger btn-outline-primary"><i class="fa fa-trash-o" aria-hidden="false"></i></button></td>
               </tr>
               <% } %>
         </tbody>

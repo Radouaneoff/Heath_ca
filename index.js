@@ -4,6 +4,7 @@ const Register = require('./Api/Register');
 const bodyParser = require('body-parser');
 const Login = require('./Api/login');
 const cookieParser = require('cookie-parser');
+const Appointment = require('./Api/appointment');
 const app = express();
 app.use(cookieParser());
 const port = parseInt(process.env.PORT) || process.argv[3] || 3000;
@@ -89,6 +90,10 @@ app.post("/register",(req, res)=>{
 
 app.post("/login",(req, res)=>{
   Login(req,res);
+});
+
+app.post("/appointment",(req, res)=>{
+  Appointment(req,res)
 });
 
 
