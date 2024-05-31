@@ -9,7 +9,8 @@ async function Register (req,res){
 
         try {
             await pool.query('INSERT INTO users (id_random, fullname, email, password, phone) VALUES ($1, $2, $3, $4, $5)', [Rand_gen(), fullname, email, password, phone]);
-            res.send('User information saved successfully!');
+        res.render('login');
+            
         } catch (err) {
             console.log(err);
             res.render('register', { error: true });
