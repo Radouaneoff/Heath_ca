@@ -1,4 +1,5 @@
 const pool = require("./connection");
+const Rand_gen = require("./generate");
 
 async function Register (req,res){
     const {fullname, email, password, phone} = req.body;
@@ -7,7 +8,7 @@ async function Register (req,res){
     }else{
 
         try {
-            await pool.query('INSERT INTO users (fullname, email, password, phone) VALUES ($1, $2, $3, $4)', [fullname, email, password, phone]);
+            await pool.query('INSERT INTO users (id_random, fullname, email, password, phone) VALUES ($1, $2, $3, $4, $5)', [Rand_gen(), fullname, email, password, phone]);
             res.send('User information saved successfully!');
         } catch (err) {
             console.log(err);
