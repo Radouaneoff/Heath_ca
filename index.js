@@ -3,7 +3,7 @@ const path = require('path');
 const Register = require('./Api/Register');
 const bodyParser = require('body-parser');
 const Login = require('./Api/login');
-const cookieParser = require('cookie-paser');
+const cookieParser = require('cookie-parser');
 const Appointment = require('./Api/appointment');
 const app = express();
 app.use(cookieParser());
