@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../parts/head') %>
+
+    <title>Admin | add doctor</title>
+</head>
+<body>
+     <%- include('../parts/navbar_admin') %>
+
+    <section id="appointment" data-stellar-background-ratio="3">
+        <div class="container">
+             <div class="row">
+
+                  <div class="col-md-6 col-sm-6">
+                       <img src="/images/img.jpg" class="img-responsive" alt="">
+                  </div>
+
+                  <div class="col-md-6 col-sm-6">
+                    <form action="/appointment" id="appointment-form" role="form" method="post">
+                         <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
+                             <h2>Add doctor </h2>
+                         </div>
+                         <div class="wow fadeInUp" data-wow-delay="0.8s">
+                             <% if (error) { %>
+                                 <div class="alert alert-warning" role="alert">
+                                     <%=errormsg  %>
+                                 </div>
+                             <% } %>
+                             
+                             <div class="col-md-6 col-sm-6">
+                                 <label for="firstname">First name</label>
+                                 <input type="text" name="firstname" placeholder="Type a firstname" class="form-control">
+                             </div>
+                             <div class="col-md-6 col-sm-6">
+                                 <label for="lastname">Last name</label>
+                                 <input type="text" name="lastname" placeholder="Type a lastname" class="form-control">
+                             </div>
+                             <div class="col-md-6 col-sm-6">
+                                 <label for="address">Address</label>
+                                 <input type="text" name="address" placeholder="Type a address" class="form-control">
+                             </div>
+                             <div class="col-md-6 col-sm-6">
+                                 <label for="date">Birth Date</label>
+                                 <input type="date" name="date" placeholder="Type a date" class="form-control">
+                             </div>
+                             <div class="col-md-12 clo-sm-12 mb-3">
+                                <label class="me-3" for="date">Category</label>
+                                <select name="healthTopic" class="form-control bg-black text-white">
+                                    <option value="General Health">General Health</option>
+                                    <option value="Cardiology">Cardiology</option>
+                                    <option value="Dental">Dental</option>
+                                    <option value="Medical Research">Medical Research</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label for="username">Username</label>
+                                <input type="text" name="username" placeholder="@username" class="form-control">
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <label for="address">Password</label>
+                                <input type="password" name="password" placeholder="Type a password" class="form-control">
+                            </div>
+                             <div class="col-md-12 col-sm-12">
+                                 <button type="submit" class="form-control" id="cf-submit">Add into your clinic</button>
+                             </div>
+                         </div>
+                     </form>
+                  </div>
+             </div>
+        </div>
+   </section>
+   <%- include('../parts/footer') %>
+</body>
+</html>

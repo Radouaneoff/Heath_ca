@@ -8,19 +8,19 @@ async function Login(req, res) {
     } else {
         try {
             const result = await pool.query(
-                'SELECT * FROM users WHERE email = $1 AND password = $2',
+                'SELECT * FROM malade WHERE email = $1 AND password = $2',
                 [email, password]
             );
 
             if (result.rows.length > 0) {
                 const user = result.rows[0];
-                if (user.is_admin) {
-                res.cookie('isAdmin', user.is_admin, { httpOnly: true, maxAge: 900000 });
+                if (user.isadmin) {
+                res.cookie('isAdmin', user.isadmin, { httpOnly: true, maxAge: 900000 });
                 res.cookie('userId', user.id, { httpOnly: true, maxAge: 900000 });
                 res.redirect('/home');
 
                 } else {
-                res.cookie('isUser', user.is_admin, { httpOnly: true, maxAge: 900000 });
+                res.cookie('isUser', user.isadmin, { httpOnly: true, maxAge: 900000 });
                 res.cookie('userId', user.id, { httpOnly: true, maxAge: 900000 });
                 res.redirect('/home');
                 }

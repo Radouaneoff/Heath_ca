@@ -12,6 +12,7 @@
      <script src="./script.js" defer></script>
 
      <link rel="stylesheet" href="/style/tooplate-style.css">
+     <link rel="stylesheet" href="/style/styles.css">
     <title>Register</title>
 </head>
 <body>
@@ -29,7 +30,7 @@
                        <form action="/register" id="appointment-form" role="form" method="post" >
 
                             <div class="section-title wow fadeInUp" data-wow-delay="0.4s">
-                                 <h2>Make an appointment</h2>
+                                 <h2>Register</h2>
                             </div>
 
                             <div class="wow fadeInUp" data-wow-delay="0.8s">
@@ -52,9 +53,11 @@
                                  <div class="col-md-12 col-sm-12">
                                       <label for="password">Password</label>
                                       <input type="password" name="password" value="" placeholder="Your password" class="form-control">
-                                 </div>
-
-                                 
+                                   </div>
+                                 <select name="gender" class="form-control ">
+                                   <option value="Male">Male</option>
+                                   <option value="Female">Female</option>
+                               </select>
                                  <div class="col-md-12 col-sm-12">
                                       <label for="telephone">Phone Number</label>
                                       <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone">   

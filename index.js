@@ -5,11 +5,15 @@ const bodyParser = require('body-parser');
 const Login = require('./Api/login');
 const cookieParser = require('cookie-parser');
 const Appointment = require('./Api/appointment');
+const List_appointment = require('./Api/list_appointment');
 const app = express();
 app.use(cookieParser());
 const port = parseInt(process.env.PORT) || process.argv[3] || 3000;
 
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'views/AdminNavigation')))
+app.use(express.static(path.join(__dirname, 'views/DoctorsNavigation')))
+app.use(express.static(path.join(__dirname, 'views/MaladeNavigation')))
 
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs');
@@ -23,25 +27,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
-  const isAdmin = req.cookies.isAdmin;
-  const isUser = req.cookies.isUser;
-  const userId = req.cookies.userId;
-  if(userId === undefined)
-    {
-      res.redirect('login');
-    }else{
-
-    if (isAdmin === undefined) {
-        res.render('admin', { role:false});
-    } else {
-        res.render('admin', { role:true});
-    }
-    }
+  List_appointment(req,res);
 });
+
+app.get('/register', (req, res) => {
+  res.render('register', { error: false });
+});
+
 
 app.get('/login', (req, res) => {
   res.render('login', {error:false});
 });
+
 app.get('/logout', (req, res) => {
   res.clearCookie('isAdmin');
   res.clearCookie('isUser');
@@ -50,11 +47,10 @@ app.get('/logout', (req, res) => {
 });
 
 
-
 app.get('/news', (req, res) => {
   res.render('news');
 });
-app.get('/appointment', (req, res) => {
+app.get('/home/appointment', (req, res) => {
 
   const isAdmin = req.cookies.isAdmin;
   const isUser = req.cookies.isUser;
@@ -63,19 +59,14 @@ app.get('/appointment', (req, res) => {
     {
       res.redirect('login');
     }else{
-
     if (isAdmin === undefined) {
-        res.render('make_appointment', { role:false, error:false});
+        res.render('maladeNavigation/make_appointment', {error:false});
     } else {
-        res.render('make_appointment', { role:true , error:false});
+        res.redirect('/home');
     }
     }
-
 });
 
-app.get('/register', (req, res) => {
-  res.render('register', { error: false });
-});
 
 app.get('/learn-more/:id', (req, res) => {
   const id = req.params.id;
@@ -84,6 +75,9 @@ app.get('/learn-more/:id', (req, res) => {
 
 
 
+
+
+// -----------POST METHODES-----------------
 app.post("/register",(req, res)=>{
   Register(req,res);
 });
@@ -96,7 +90,54 @@ app.post("/appointment",(req, res)=>{
   Appointment(req,res)
 });
 
+app.post("/home",(req, res)=>{
+  List_appointment(req,res)
+});
 
+// Admin Navigation 
+
+app.get('/home/doctors',(req,res)=>{
+  const isAdmin = req.cookies.isAdmin;
+  
+  if(isAdmin !==undefined){
+    res.render('adminNavigation/DoctorList', { role:true});
+  }else{
+    res.redirect('/login');
+  }
+})
+
+app.get('/home/add-doctors',(req,res)=>{
+  const isAdmin = req.cookies.isAdmin;
+  
+  if(isAdmin !==undefined){
+    res.render('adminNavigation/addDoctor', { error:false});
+  }else{
+    res.redirect('/login');
+  }
+})
+
+app.get('/home/add-category',(req,res)=>{
+  const isAdmin = req.cookies.isAdmin;
+  
+  if(isAdmin !==undefined){
+    res.render('adminNavigation/addCategory', { error:false});
+  }else{
+      res.redirect('/login');
+  }
+})
+
+app.get('/home/edit-clinic',(req,res)=>{
+  const isAdmin = req.cookies.isAdmin;
+  
+  if(isAdmin !==undefined){
+    res.render('adminNavigation/edit', { role:true});
+  }else{
+      res.redirect('/login');
+  }
+})
+
+
+// list of appointment
 
 
 app.listen(port, () => {

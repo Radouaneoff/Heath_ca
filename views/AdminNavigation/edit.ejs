@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <%- include('../parts/head') %>
+     
+     <title>Admin | Clinic</title>
+     
+  </head>
+<body>
+     <%- include('../parts/navbar_admin') %>
+     
+   <section id="List" data-stellar-background-ratio="3">
+    <div class="container">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">List of all appointment</h2>
+          </div>
+          </div>
+    </div>
+      <div class="container mt-1">
+        <div class="row text-center">
+          <div class="bg-white row text-center">
+            <div class="col-md-6 mb-3">
+                <select name="healthTopic" class="form-cnt ">
+                    <option value="General Health">General Health</option>
+                    <option value="Cardiology">Cardiology</option>
+                    <option value="Dental">Dental</option>
+                    <option value="Medical Research">Medical Research</option>
+                </select>
+            </div>
+            <div class="col-md-6 mb-3">
+                <select name="appointmentDay" class="form-cnt ">
+                    <option value="Sunday">Sunday</option>
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                </select>
+            </div>
+        </div>
+        </div>
+
+            <% for(var i=0; i<10; i++){ %>
+              <div class=" list_Card">
+                  <div class="content-main">
+                    <div class="">#<%=i  %>  </div>
+                    <div class="">Youcef Boudia </div>
+                    <div class="">y.boudia.@lagh-univ.dz  </div>
+                    <div class="time">jun, 15  2:15 PM</div>
+                    <div class="text-link"><a href="">Mohamed anas</a></div>
+                    <div class="button-wrap">
+                      <button class="primary-cta">Accept</button>
+                      <button class="secondary-cta">Decline</button>
+                    </div>
+                  </div>
+              </div>
+              <% } %>
+
+            </div>
+            
+          </section>
+        <% if(true){  %>
+          <div class="container">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="card-title">List of all appointment</h2>
+                </div>
+                </div>
+            <section id="addDoctors" class=" section_form">
+              <form id="consultation-form" class="feed-form" action="#">
+                <input required="" placeholder="Name" type="text">
+                <input name="phone" required="" placeholder="Phone number">
+                <input name="email" required="" placeholder="E-mail" type="email">
+                <button class="button_submit">ORDER</button>
+              </form>
+            </section>
+          </div>
+          <% } %>
+   <%- include('../parts/footer') %>
+</body>
+</html>
