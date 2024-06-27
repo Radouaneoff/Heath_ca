@@ -3,15 +3,17 @@ const Rand_gen = require("./generate");
 
 async function Appointment (req,res){
     const { healthTopic, appointmentDay, message } = req.body;
-    if(healthTopic ==undefined || appointmentDay ==undefined){
+    console.log(healthTopic);
+    if(healthTopic === undefined || appointmentDay === undefined){
+        console.log("awd");
         res.render('maladeNavigation/make_appointment', { error: true , errormsg:"some filed are empty" });
     }else{
         try {
             const available_doctors = await pool.query(
-                "SELECT * FROM doctors WHERE health_category = $1 and available = 'f'",
+                "SELECT * FROM doctors WHERE health_category = $1 and available = 't'",
                 [healthTopic]
             );
-            if(available_doctors.rows.length>1){
+            if(available_doctors.rows.length>0){
             const id_doc = available_doctors.rows[0].id;
             const result = await pool.query(
                 'SELECT * FROM appointment WHERE health_category = $1 AND date_appointment = $2',
@@ -31,7 +33,7 @@ async function Appointment (req,res){
 
         } catch (err) {
             console.log(err);
-            res.render('maladeNavigation/make_appointment', { error: true , errormsg:"some filed are empty"});
+            res.render('maladeNavigation/make_appointment', { error: true , errormsg:"Something went wrong, please try again"});
             }
     }
 }

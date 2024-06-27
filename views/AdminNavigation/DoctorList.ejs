@@ -16,27 +16,36 @@
           <h2 class="card-title">DOCTORS</h2>
           </div>
           </div>
-          <div class="d-flex">
+          <form class="d-flex" action="/home/Doctors" method="post">
 
             <div class="col-md-12 col-sm-6">
-              <input type="input" name="date" placeholder="Search for" class="search-">
-              <input type="submit" name="date" value="Search" class="btn-search">
+              <input type="input" name="search" placeholder="Search for" class="search-">
+              <input type="submit"  value="Search" class="btn-search">
             </div>
             <input type="button" onclick="console.log('hey');" name="date" value="Next page" class="btn-next">
-        </div>
+          </form>
     </div>
       <div class="container mt-1">
-            <% for(var i=0; i<10; i++){ %>
+        <% if(data.length>0){ %>
+            <% for(var i=0; i<data.length; i++){ %>
               <div class=" list_Card">
                   <div class="content-main">
-                    <div class="">#<%=i  %>  </div>
+                    <div class="">#<%=data[i].id  %>  </div>
 
-                    <div class="">Djilali  </div>
-                    <div class="">@Djilali_199  </div>
-                    <div class="time">jun, 15  2:15 PM</div>
+                    <div class=""><%=data[i].fullname  %>  </div>
+                    <div class=""><%=data[i].username  %>   </div>
+                    <div class="time"><%=data[i].date  %> </div>
+                    <div class="button-wrap">
+                  
+                        <a href="/delete-doctors/<%=data[i].id_random %>" class="secondary-cta" type="submit" name="delete" >Delete</a>
+                    </div>
                   </div>
               </div>
               <% } %>
+              <% }else{ %>
+                <h3 style="text-align: center;">There no doctors add yet </h3>
+                <% } %>
+
 
             </div>
           </section>

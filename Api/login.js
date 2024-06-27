@@ -1,4 +1,5 @@
 const pool = require("./connection");
+const DoctorAuth = require("./doctor");
 
 async function Login(req, res) {
     const { email, password } = req.body;
@@ -20,12 +21,13 @@ async function Login(req, res) {
                 res.redirect('/home');
 
                 } else {
-                res.cookie('isUser', user.isadmin, { httpOnly: true, maxAge: 900000 });
+                res.cookie('isUser', !user.isadmin, { httpOnly: true, maxAge: 900000 });
                 res.cookie('userId', user.id, { httpOnly: true, maxAge: 900000 });
                 res.redirect('/home');
                 }
             } else {
-                res.render('Login', { error: true });
+                
+                DoctorAuth(req,res);
             }
         } catch (err) {
             console.log(err);

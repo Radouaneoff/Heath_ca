@@ -6,6 +6,9 @@ const Login = require('./Api/login');
 const cookieParser = require('cookie-parser');
 const Appointment = require('./Api/appointment');
 const List_appointment = require('./Api/list_appointment');
+const AddDoctor = require('./Api/AddDoctor');
+const ListDoctors = require('./Api/List_doctors');
+const deleteUser = require('./Api/DeleteUser');
 const app = express();
 app.use(cookieParser());
 const port = parseInt(process.env.PORT) || process.argv[3] || 3000;
@@ -23,7 +26,8 @@ app.use(express.static(path.join(__dirname, 'views/MaladeNavigation')))
   
 
 app.get('/', (req, res) => {
-  res.render('index');
+  const check = (req.cookies.userId === undefined)
+  res.render('index', {check:check});
 });
 
 app.get('/home', (req, res) => {
@@ -38,14 +42,21 @@ app.get('/register', (req, res) => {
 app.get('/login', (req, res) => {
   res.render('login', {error:false});
 });
+app.get('/appointment', (req, res) => {
+  if(req.cookies.isAdmin ===undefined)
+    res.render('MaladeNavigation/make_appointment', {error:false});
+  else
+    res.redirect('/home');
+
+});
 
 app.get('/logout', (req, res) => {
   res.clearCookie('isAdmin');
   res.clearCookie('isUser');
   res.clearCookie('userId');
+  res.clearCookie('doctorId');
   res.redirect('/login');
 });
-
 
 app.get('/news', (req, res) => {
   res.render('news');
@@ -53,7 +64,6 @@ app.get('/news', (req, res) => {
 app.get('/home/appointment', (req, res) => {
 
   const isAdmin = req.cookies.isAdmin;
-  const isUser = req.cookies.isUser;
   const userId = req.cookies.userId;
   if(userId === undefined)
     {
@@ -66,7 +76,6 @@ app.get('/home/appointment', (req, res) => {
     }
     }
 });
-
 
 app.get('/learn-more/:id', (req, res) => {
   const id = req.params.id;
@@ -91,19 +100,30 @@ app.post("/appointment",(req, res)=>{
 });
 
 app.post("/home",(req, res)=>{
+  
   List_appointment(req,res)
+});
+app.post("/addDoctor",(req, res)=>{
+  
+  const admin = req.cookies.isAdmin;
+  
+  if(admin !==undefined){
+    AddDoctor(req,res)
+  }else{
+    res.redirect('/home')
+  }
+});
+app.get("/delete-doctors/:id",(req, res)=>{
+  deleteUser(req,res)
 });
 
 // Admin Navigation 
 
 app.get('/home/doctors',(req,res)=>{
-  const isAdmin = req.cookies.isAdmin;
-  
-  if(isAdmin !==undefined){
-    res.render('adminNavigation/DoctorList', { role:true});
-  }else{
-    res.redirect('/login');
-  }
+  ListDoctors(req,res);
+})
+app.post('/home/doctors',(req,res)=>{
+  ListDoctors(req,res);
 })
 
 app.get('/home/add-doctors',(req,res)=>{

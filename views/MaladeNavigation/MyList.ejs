@@ -43,10 +43,11 @@
             <input type="button" onclick="console.log('hey');" name="date" value="Next page" class="btn-next">
           </div>
           </div>
-            <% for(var i=0; i<10; i++){ %>
+          <% if(data.length !== 0){ %>
+            <% for(var i=0; i<5; i++){   %>
               <div class=" list_Card">
                   <div class="content-main">
-                    <div class="">#<%=i  %>  </div>
+                    <div class="">#<%=data[i].id  %>  </div>
                     <div class="time">2:15 PM</div>
                     <div class="text-link"><a href="">DoctorsName<%=i %></a></div>
                     <div class="button-wrap">
@@ -55,7 +56,9 @@
                   </div>
               </div>
               <% } %>
-
+              <% }else{ %>
+                <h3 style="text-align: center;">There no appointment to display</h3>
+                <% } %>
             </div>
             
           </section>
