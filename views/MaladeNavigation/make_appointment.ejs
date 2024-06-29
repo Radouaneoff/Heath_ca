@@ -30,9 +30,15 @@
                          </div>
                          <div class="wow fadeInUp" data-wow-delay="0.8s">
                              <% if (error) { %>
-                                 <div class="alert alert-warning" role="alert">
-                                     <%=errormsg  %>
-                                 </div>
+                             <% if (state) { %>
+                                <div class="alert alert-success" role="alert">
+                                    <%=succesmsg  %>
+                                </div>
+                                <% }else{ %>
+                                    <div class="alert alert-warning" role="alert">
+                                        <%=errormsg  %>
+                                    </div>
+                             <% } %>
                              <% } %>
                              <div class="row text-center">
                                  <div class="col-md-6 mb-3">

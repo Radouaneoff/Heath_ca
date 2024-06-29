@@ -43,10 +43,15 @@ app.get('/login', (req, res) => {
   res.render('login', {error:false});
 });
 app.get('/appointment', (req, res) => {
-  if(req.cookies.isAdmin ===undefined)
-    res.render('MaladeNavigation/make_appointment', {error:false});
-  else
+  if(req.cookies.userId !==undefined){
+
+    if(req.cookies.isAdmin ===undefined)
+      res.render('MaladeNavigation/make_appointment', {error:false});
+    else
+      res.redirect('/home');
+  }else{
     res.redirect('/home');
+  }
 
 });
 
@@ -96,7 +101,14 @@ app.post("/login",(req, res)=>{
 });
 
 app.post("/appointment",(req, res)=>{
-  Appointment(req,res)
+
+  if(req.cookies.userId !==undefined)
+    {
+
+      Appointment(req,res)
+    }else{
+      res.redirect('/home')
+    }
 });
 
 app.post("/home",(req, res)=>{
@@ -113,7 +125,7 @@ app.post("/addDoctor",(req, res)=>{
     res.redirect('/home')
   }
 });
-app.get("/delete-doctors/:id",(req, res)=>{
+app.get("/delete/:id",(req, res)=>{
   deleteUser(req,res)
 });
 

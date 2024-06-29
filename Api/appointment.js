@@ -1,40 +1,54 @@
 const pool = require("./connection");
 const Rand_gen = require("./generate");
 
-async function Appointment (req,res){
+async function Appointment(req, res) {
     const { healthTopic, appointmentDay, message } = req.body;
-    console.log(healthTopic);
-    if(healthTopic === undefined || appointmentDay === undefined){
-        console.log("awd");
-        res.render('maladeNavigation/make_appointment', { error: true , errormsg:"some filed are empty" });
-    }else{
-        try {
-            const available_doctors = await pool.query(
-                "SELECT * FROM doctors WHERE health_category = $1 and available = 't'",
-                [healthTopic]
-            );
-            if(available_doctors.rows.length>0){
-                const id_doc = available_doctors.rows[0].id;
-                const result = await pool.query(
-                    'SELECT * FROM appointment WHERE health_category = $1 AND date_appointment = $2',
-                    [healthTopic, appointmentDay]
-                );
-                console.log("VALABLE");
-            if (result.rows.length < 20) {
-                await pool.query('SELECT make_appointment ($1, $2, $3, $4, $5, $6)', [Rand_gen(),id_doc, req.cookies.idUser, healthTopic, appointmentDay, message]);
-                res.render('maladeNavigation/make_appointment', { error: false});  
-            }
-            else{
-                res.render('maladeNavigation/make_appointment', { error: true , errormsg:"Appointment on this day is not available, please choose another day." });
+    
+    if (!healthTopic || !appointmentDay) {
+        res.render('maladeNavigation/make_appointment', { error: true, errormsg: "Some fields are empty." });
+        return;
+    }
+
+    try {
+        const availableDoctorsResult = await pool.query(
+            "SELECT * FROM doctors WHERE health_category = $1 AND available = 't'",
+            [healthTopic]
+        );
+        const availableDoctors = availableDoctorsResult.rows;
+
+        if (availableDoctors.length === 0) {
+            res.render('maladeNavigation/make_appointment', { error: true, state:false ,errormsg: "No doctors available right now, please try later." });
+            return;
         }
-             }
-             else{
-                res.render('maladeNavigation/make_appointment', { error: true , errormsg:"we are sorry there isn't any  doctors available right now, please try later" });
-             }
-        } catch (err) {
-            console.log(err);
-            res.render('maladeNavigation/make_appointment', { error: true , errormsg:"Something went wrong, please try again"});
-            }
+
+        const doctorId = availableDoctors[0].id;
+        const appointmentResult = await pool.query(
+            'SELECT * FROM appointment WHERE health_category = $1 AND date_appointment = $2',
+            [healthTopic, appointmentDay]
+        );
+        const Check = await pool.query(
+            'SELECT * FROM appointment WHERE health_category = $1 AND date_appointment = $2 AND id_malade = $3',
+            [healthTopic, appointmentDay, req.cookies.userId]
+        );
+
+        if ((appointmentResult.rows.length >= 20) ) {
+            res.render('maladeNavigation/make_appointment', { error: true, state:false ,errormsg: "Appointment on this day is not available, please choose another day." });
+            return;
+        }
+        if((Check.rows.length >0)  ){
+            res.render('maladeNavigation/make_appointment', { error: true, state:false ,errormsg: "Sorry you're alredy set this day." });
+            return;
+        }
+        await pool.query(`
+            INSERT INTO appointment (id_random, id_doctor, id_malade, health_category, date_appointment, message) 
+            VALUES ($1, $2, $3, $4, $5, $6)
+        `, [Rand_gen(), doctorId, req.cookies.userId, healthTopic, appointmentDay, message]);
+
+        res.render('maladeNavigation/make_appointment', { error: true, state:true, succesmsg:'Appointment in this day are successfuly add it.' });
+
+    } catch (err) {
+        console.error(err);
+        res.render('maladeNavigation/make_appointment', { error: true,state:false , errormsg: "Something went wrong, please try again." });
     }
 }
 

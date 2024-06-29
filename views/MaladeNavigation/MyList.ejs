@@ -44,14 +44,15 @@
           </div>
           </div>
           <% if(data.length !== 0){ %>
-            <% for(var i=0; i<5; i++){   %>
+            <% for(var i=0; i<data.length; i++){   %>
               <div class=" list_Card">
                   <div class="content-main">
-                    <div class="">#<%=data[i].id  %>  </div>
-                    <div class="time">2:15 PM</div>
-                    <div class="text-link"><a href="">DoctorsName<%=i %></a></div>
+                    <div class="">#<%=data[i].main_id  %>  </div>
+                    <div class="text-link"><a href=""> Doctor : <span class="time"><%=data[i].fullname  %></span> </a></div>
+                    <div class="text-link"><a href=""> Category : <span class="time"><%=data[i].health_category  %></span> </a></div>
+                    <div class="time"><%= new Date(data[i].date_current).toLocaleString('en-US', { timeZone: 'Europe/Berlin' }) %> </div>
                     <div class="button-wrap">
-                      <button class="secondary-cta">Delete</button>
+                      <a href="/delete/<%=data[i].random %>" class="secondary-cta">Delete</a>
                     </div>
                   </div>
               </div>

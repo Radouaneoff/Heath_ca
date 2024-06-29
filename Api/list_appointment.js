@@ -7,7 +7,7 @@ async function List_appointment (req,res){
     if(req.cookies.isAdmin!==undefined){
         try {
             const result = await pool.query(
-                'SELECT * FROM appointment order by id DESC',
+                'SELECT *, d.fullname as docname , m.fullname as maladename, a.id as main_id, a.id_random as random FROM appointment  a , malade m,  doctors d where d.id = a.id_doctor and m.id = a.id_malade order by a.id DESC',
             );
             res.render('adminNavigation/ListOfAll',{data:result.rows});
         }
@@ -20,7 +20,7 @@ async function List_appointment (req,res){
                 if(healthTopic === undefined || appointmentDay === undefined)
                     {
                         const result = await pool.query(
-                            'SELECT * FROM appointment WHERE  id_malade = $1',
+                            "SELECT *, a.id as main_id, a.id_random as random FROM appointment a, doctors d WHERE  id_malade = $1 and d.id = a.id_doctor order by a.id DESC",
                             [req.cookies.userId]
                         );
                         res.render('MaladeNavigation/MyList',{data:result.rows});

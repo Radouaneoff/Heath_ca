@@ -11,7 +11,7 @@ async function AddDoctor(req,res){
             
             pool.query('insert into doctors (id_random , fullname , username , password , phone , gender , health_category , available, date) values($1, $2, $3, $4, $5, $6, $7, $8, $9)', 
                 [Rand_gen(), fullname, username, password, phone, gender,  category , true, date])
-
+                
             res.render('adminNavigation/addDoctor',{error:true, state:true, succesmsg:`The doctors ${fullname} add successfully.`});
 
         } catch (error) {

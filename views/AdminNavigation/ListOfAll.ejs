@@ -46,17 +46,16 @@
         </form>
           </div>
           <% if(data.length > 0){ %>
-            <% for(var i=0; i<10; i++){ %>
+            <% for(var i=0; i<data.length; i++){ %>
               <div class=" list_Card">
                   <div class="content-main">
-                    <div class="">#<%=i  %>  </div>
-                    <div class="">Radoune aitmechdal </div>
-                    <div class="">r.aitmechdal.mi@lagh-univ.dz  </div>
-                    <div class="time">jun, 15  2:15 PM</div>
-                    <div class="text-link"><a href="">Mohamed anas</a></div>
+                    <div class="">#<%=data[i].main_id  %>  </div>
+                    <div class=""> Malade : <span class="time"><%=data[i].maladename  %></span> </div>
+                    <div class=""> Email : <span class="time"><%=data[i].email  %></span> </div>
+                    <div class="time"><%= new Date(data[i].date_current).toLocaleString('en-US', { timeZone: 'Europe/Berlin' }) %> </div>
+                    <div class="text-link"><a> Doctor : <span class="time"><%=data[i].docname  %></span></a></div>
                     <div class="button-wrap">
-                      <button class="primary-cta">Accept</button>
-                      <button class="secondary-cta">Decline</button>
+                      <a href="/delete/<%=data[i].random %>" class="secondary-cta">Delete</a>
                     </div>
                   </div>
               </div>
