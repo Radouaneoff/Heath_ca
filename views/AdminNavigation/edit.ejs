@@ -9,73 +9,47 @@
 <body>
      <%- include('../parts/navbar_admin') %>
      
-   <section id="List" data-stellar-background-ratio="3">
-    <div class="container">
-      <div class="card">
-        <div class="card-body">
-          <h2 class="card-title">List of all appointment</h2>
-          </div>
-          </div>
-    </div>
-      <div class="container mt-1">
-        <div class="row text-center">
-          <div class="bg-white row text-center">
-            <div class="col-md-6 mb-3">
-                <select name="healthTopic" class="form-cnt ">
-                    <option value="General Health">General Health</option>
-                    <option value="Cardiology">Cardiology</option>
-                    <option value="Dental">Dental</option>
-                    <option value="Medical Research">Medical Research</option>
-                </select>
-            </div>
-            <div class="col-md-6 mb-3">
-                <select name="appointmentDay" class="form-cnt ">
-                    <option value="Sunday">Sunday</option>
-                    <option value="Monday">Monday</option>
-                    <option value="Tuesday">Tuesday</option>
-                    <option value="Wednesday">Wednesday</option>
-                    <option value="Thursday">Thursday</option>
-                </select>
-            </div>
-        </div>
-        </div>
-
-            <% for(var i=0; i<10; i++){ %>
-              <div class=" list_Card">
-                  <div class="content-main">
-                    <div class="">#<%=i  %>  </div>
-                    <div class="">Youcef Boudia </div>
-                    <div class="">y.boudia.@lagh-univ.dz  </div>
-                    <div class="time">jun, 15  2:15 PM</div>
-                    <div class="text-link"><a href="">Mohamed anas</a></div>
-                    <div class="button-wrap">
-                      <button class="primary-cta">Accept</button>
-                      <button class="secondary-cta">Decline</button>
-                    </div>
+   
+          <form action="/change" method="post" class="container">
+            <% if (error) { %>
+              <% if(state){ %>
+                  <div class="alert alert-success" role="alert">
+                      <%=message  %>
                   </div>
-              </div>
-              <% } %>
-
-            </div>
-            
-          </section>
-        <% if(true){  %>
-          <div class="container">
+                  <% }else{ %>
+               <div class="alert alert-warning" role="alert">
+                   <%=message  %>
+               </div>
+               <% } %>
+           <% } %>
             <div class="card">
               <div class="card-body">
-                <h2 class="card-title">List of all appointment</h2>
+                <h2 class="card-title">Change information of you're clinc</h2>
                 </div>
                 </div>
-            <section id="addDoctors" class=" section_form">
-              <form id="consultation-form" class="feed-form" action="#">
-                <input required="" placeholder="Name" type="text">
-                <input name="phone" required="" placeholder="Phone number">
-                <input name="email" required="" placeholder="E-mail" type="email">
-                <button class="button_submit">ORDER</button>
-              </form>
-            </section>
-          </div>
-          <% } %>
+            <div  id="addDoctors" class=" section_form d-flex flex-wrap justify-between ">
+              <div id="consultation-form" class="feed-form m-3" action="#">
+                <input name="phone"  placeholder="Phone number">
+                <input name="email"  placeholder="E-mail" type="email">
+              </div>
+              <div id="consultation-form" class="feed-form m-3" action="#">
+                <label for="">Opeing Day</label>
+                  <select name="appointmentDayOpen" class="form-control bg-black text-white">
+                      <option value="Sunday">Sunday</option>
+                      <option value="Monday">Monday</option>
+                      <option value="Tuesday">Tuesday</option>
+                      <option value="Wednesday">Wednesday</option>
+                      <option value="Thursday">Thursday</option>
+                  </select>
+                  <div class="d-flex">
+                    <input  class="col-sm-6 form-control" name="starthoursopen"  placeholder="Start hours" type="number">
+                    <input class="col-sm-6 form-control" name="endhoursopen"  placeholder="End hours" type="number">
+                  </div>
+              </div>
+              
+            </div>
+            <button class="button_submit" type="submit">Change</button>
+          </form>
    <%- include('../parts/footer') %>
 </body>
 </html>

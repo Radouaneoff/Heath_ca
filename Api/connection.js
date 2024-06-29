@@ -5,11 +5,14 @@ let { PGHOST, PGDATABASE, PGUSER, PGPASSWORD, ENDPOINT_ID } = process.env;
 
 
 const pool = new Pool({
-  host: 'localhost',
-  database: 'healthcare',
-  user: 'postgres',
-  password: 'rB2j',
+  host: PGHOST,
+  database: PGDATABASE,
+  user: PGUSER,
+  password: PGPASSWORD,
   port: 5432,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
 pool.connect((err, client, done) => {
   if (err) {

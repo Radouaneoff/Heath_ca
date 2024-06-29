@@ -7,8 +7,10 @@ const cookieParser = require('cookie-parser');
 const Appointment = require('./Api/appointment');
 const List_appointment = require('./Api/list_appointment');
 const AddDoctor = require('./Api/AddDoctor');
+const EditAdmin = require('./Api/editAdmin');
 const ListDoctors = require('./Api/List_doctors');
 const deleteUser = require('./Api/DeleteUser');
+const Info = require('./Api/info');
 const app = express();
 app.use(cookieParser());
 const port = parseInt(process.env.PORT) || process.argv[3] || 3000;
@@ -26,8 +28,7 @@ app.use(express.static(path.join(__dirname, 'views/MaladeNavigation')))
   
 
 app.get('/', (req, res) => {
-  const check = (req.cookies.userId === undefined)
-  res.render('index', {check:check});
+  Info(req,res)
 });
 
 app.get('/home', (req, res) => {
@@ -162,9 +163,18 @@ app.get('/home/edit-clinic',(req,res)=>{
   const isAdmin = req.cookies.isAdmin;
   
   if(isAdmin !==undefined){
-    res.render('adminNavigation/edit', { role:true});
+    res.render('adminNavigation/edit', { error:false});
   }else{
       res.redirect('/login');
+  }
+})
+app.post('/change',(req,res)=>{
+  const isAdmin = req.cookies.isAdmin;
+  
+  if(isAdmin !==undefined){
+    EditAdmin(req,res)
+  }else{
+      res.redirect('/home');
   }
 })
 
