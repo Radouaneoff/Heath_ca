@@ -10,13 +10,13 @@ async function ListDoctors(req,res){
         try {
             if(search === undefined){
                 const data = await pool.query('SELECT * from doctors ');
-                res.render('AdminNavigation/DoctorList', {data:data.rows});
+                res.render('DoctorList', {data:data.rows});
                 console.log("main");
             }else{
                 const sql = "SELECT * FROM doctors WHERE fullname like '%"+search+"%'"
                 console.log(sql);
                 const data = await pool.query(sql);
-                res.render('AdminNavigation/DoctorList', {data:data.rows});
+                res.render('DoctorList', {data:data.rows});
 
             }
 

@@ -12,10 +12,12 @@ async function DoctorAuth(req, res) {
                 res.cookie('isAdmin', false, { httpOnly: true, maxAge: 900000 });
                 res.cookie('doctorId', user.id, { httpOnly: true, maxAge: 900000 });
                 res.redirect('/home');
-                
+            }else{
+
+                res.render('Login', { error: true });
             }
         }else{
-            res.render('login', {error:'your username or passowrd is worng, please try again.'})
+            res.render('Login', { error: true });
         }
         
     } catch (error) {

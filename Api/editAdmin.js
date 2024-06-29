@@ -5,17 +5,17 @@ async function EditAdmin(req, res) {
     const { phone, email, appointmentDayOpen, starthoursopen, endhoursopen, starthoursclose, endhoursclose } = req.body;
 
     if ((!phone || !email) && (!appointmentDayOpen  || !starthoursopen || !endhoursopen)) {
-      return    res.render('adminNavigation/edit', { error:true ,state:false , message:"Some field are empty"});
+      return    res.render('edit', { error:true ,state:false , message:"Some field are empty"});
     }
     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)&&(!appointmentDayOpen  || !starthoursopen || !endhoursopen)) {
-        return    res.render('adminNavigation/edit', { error:true ,state:false , message:"Invalid email format"});
+        return    res.render('edit', { error:true ,state:false , message:"Invalid email format"});
     }
     
     if (starthoursopen < 0 || starthoursopen > 24 || endhoursopen < 0 || endhoursopen > 24 || starthoursclose < 0 || starthoursclose > 24 || endhoursclose < 0 || endhoursclose > 24) {
         
-        return    res.render('adminNavigation/edit', { error:true ,state:false , message:"Invalid hours. Must be between 0 and 24"});
+        return    res.render('edit', { error:true ,state:false , message:"Invalid hours. Must be between 0 and 24"});
     }
 
     const query1 = `
@@ -36,22 +36,22 @@ async function EditAdmin(req, res) {
     if(phone && email){
         const result = await pool.query(query1, values);
         if (result.rowCount === 0) {
-            return    res.render('adminNavigation/edit', { error:true ,state:false , message:"something wrong happing, please try again."});
+            return    res.render('edit', { error:true ,state:false , message:"something wrong happing, please try again."});
         }
     }
     if (appointmentDayOpen  && starthoursopen && endhoursopen){
 
         const result1 = await pool.query(query2, [starthoursopen, endhoursopen, appointmentDayOpen]);
         if (result1.rowCount === 0) {
-            return    res.render('adminNavigation/edit', { error:true ,state:false , message:"something wrong happing, please try again."});
+            return    res.render('edit', { error:true ,state:false , message:"something wrong happing, please try again."});
         }
     }
 
     
-    return    res.render('adminNavigation/edit', { error:true ,state:true , message:"Clinic information updated successfully"});
+    return    res.render('edit', { error:true ,state:true , message:"Clinic information updated successfully"});
 } catch (error) {
     console.log(error);
-    return    res.render('adminNavigation/edit', { error:true ,state:false , message:"something went wrong , please try again."});
+    return    res.render('edit', { error:true ,state:false , message:"something went wrong , please try again."});
   }
 }
 

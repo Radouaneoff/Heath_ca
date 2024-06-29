@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <%- include('../parts/head') %>
+     <%- include('./parts/head') %>
      
-     <title>Admin | Dashbored</title>
+     <title>Appointment</title>
      
   </head>
 <body>
-     <%- include('../parts/navbar_admin') %>
+     <%- include('./parts/navbar_users') %>
      
    <section id="List" data-stellar-background-ratio="3">
     <div class="container">
@@ -22,11 +22,10 @@
         <div class="row text-center">
         </div>
         <div class="d-flex justify-between">
-          <form action="/home" method="post">
-            <input type="input" name="search" placeholder="Search for" class="search-">
-            <input type="submit"  value="Search" class="btn-search">
-          </form>
-          <form action="/home" method="post" class="d-flex justify-between">
+          <div class="">
+            <input type="input" name="date" placeholder="Search for" class="search-">
+            <input type="submit" name="date" value="Search" class="btn-search">
+          </div>
             <select name="healthTopic" class="form-cnt ">
               <option value="General Health">General Health</option>
               <option value="Cardiology">Cardiology</option>
@@ -39,21 +38,19 @@
             <option value="Tuesday">Tuesday</option>
             <option value="Wednesday">Wednesday</option>
             <option value="Thursday">Thursday</option>
-          </select>
+        </select>
           <div class="">
-            <input type="submit" onclick="console.log('hey');"  value="Filter" class="btn-next">
+            <input type="button" onclick="console.log('hey');" name="date" value="Next page" class="btn-next">
           </div>
-        </form>
           </div>
-          <% if(data.length > 0){ %>
-            <% for(var i=0; i<data.length; i++){ %>
+          <% if(data.length !== 0){ %>
+            <% for(var i=0; i<data.length; i++){   %>
               <div class=" list_Card">
                   <div class="content-main">
                     <div class="">#<%=data[i].main_id  %>  </div>
-                    <div class=""> Malade : <span class="time"><%=data[i].maladename  %></span> </div>
-                    <div class=""> Email : <span class="time"><%=data[i].email  %></span> </div>
+                    <div class="text-link"><a href=""> Doctor : <span class="time"><%=data[i].fullname  %></span> </a></div>
+                    <div class="text-link"><a href=""> Category : <span class="time"><%=data[i].health_category  %></span> </a></div>
                     <div class="time"><%= new Date(data[i].date_current).toLocaleString('en-US', { timeZone: 'Europe/Berlin' }) %> </div>
-                    <div class="text-link"><a> Doctor : <span class="time"><%=data[i].docname  %></span></a></div>
                     <div class="button-wrap">
                       <a href="/delete/<%=data[i].random %>" class="secondary-cta">Delete</a>
                     </div>
@@ -61,15 +58,14 @@
               </div>
               <% } %>
               <% }else{ %>
-                <h3 style="text-align: center;">There's no appointment that are display  </h3>
+                <h3 style="text-align: center;">There no appointment to display</h3>
                 <% } %>
-
             </div>
             
           </section>
         <% if(true){  %>
           
           <% } %>
-   <%- include('../parts/footer') %>
+   <%- include('./parts/footer') %>
 </body>
 </html>

@@ -9,7 +9,7 @@ async function List_appointment (req,res){
             const result = await pool.query(
                 'SELECT *, d.fullname as docname , m.fullname as maladename, a.id as main_id, a.id_random as random FROM appointment  a , malade m,  doctors d where d.id = a.id_doctor and m.id = a.id_malade order by a.id DESC',
             );
-            res.render('adminNavigation/ListOfAll',{data:result.rows});
+            res.render('ListOfAll',{data:result.rows});
         }
         catch(error){
             console.log(error);
@@ -23,7 +23,7 @@ async function List_appointment (req,res){
                             "SELECT *, a.id as main_id, a.id_random as random FROM appointment a, doctors d WHERE  id_malade = $1 and d.id = a.id_doctor order by a.id DESC",
                             [req.cookies.userId]
                         );
-                        res.render('MaladeNavigation/MyList',{data:result.rows});
+                        res.render('MyList',{data:result.rows});
                     }else{
                         Search(healthTopic, appointmentDay)
                     }
@@ -51,7 +51,7 @@ async function Search(healthTopic, appointmentDay){
         'SELECT * FROM appointment WHERE health_category = $1 AND date_appointment = $2',
         [healthTopic, appointmentDay]
     );
-    res.render('MaladeNavigation/MyList',{data:result.rows});
+    res.render('MyList',{data:result.rows});
     }
     catch(error){
         console.log(error);

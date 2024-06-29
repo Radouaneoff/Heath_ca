@@ -5,7 +5,7 @@ async function Appointment(req, res) {
     const { healthTopic, appointmentDay, message } = req.body;
     
     if (!healthTopic || !appointmentDay) {
-        res.render('maladeNavigation/make_appointment', { error: true, errormsg: "Some fields are empty." });
+        res.render('make_appointment', { error: true, errormsg: "Some fields are empty." });
         return;
     }
 
@@ -17,7 +17,7 @@ async function Appointment(req, res) {
         const availableDoctors = availableDoctorsResult.rows;
 
         if (availableDoctors.length === 0) {
-            res.render('maladeNavigation/make_appointment', { error: true, state:false ,errormsg: "No doctors available right now, please try later." });
+            res.render('make_appointment', { error: true, state:false ,errormsg: "No doctors available right now, please try later." });
             return;
         }
 
@@ -32,11 +32,11 @@ async function Appointment(req, res) {
         );
 
         if ((appointmentResult.rows.length >= 20) ) {
-            res.render('maladeNavigation/make_appointment', { error: true, state:false ,errormsg: "Appointment on this day is not available, please choose another day." });
+            res.render('make_appointment', { error: true, state:false ,errormsg: "Appointment on this day is not available, please choose another day." });
             return;
         }
         if((Check.rows.length >0)  ){
-            res.render('maladeNavigation/make_appointment', { error: true, state:false ,errormsg: "Sorry you're alredy set this day." });
+            res.render('make_appointment', { error: true, state:false ,errormsg: "Sorry you're alredy set this day." });
             return;
         }
         await pool.query(`
@@ -44,11 +44,11 @@ async function Appointment(req, res) {
             VALUES ($1, $2, $3, $4, $5, $6)
         `, [Rand_gen(), doctorId, req.cookies.userId, healthTopic, appointmentDay, message]);
 
-        res.render('maladeNavigation/make_appointment', { error: true, state:true, succesmsg:'Appointment in this day are successfuly add it.' });
+        res.render('make_appointment', { error: true, state:true, succesmsg:'Appointment in this day are successfuly add it.' });
 
     } catch (err) {
         console.error(err);
-        res.render('maladeNavigation/make_appointment', { error: true,state:false , errormsg: "Something went wrong, please try again." });
+        res.render('make_appointment', { error: true,state:false , errormsg: "Something went wrong, please try again." });
     }
 }
 

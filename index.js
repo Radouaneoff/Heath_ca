@@ -47,7 +47,7 @@ app.get('/appointment', (req, res) => {
   if(req.cookies.userId !==undefined){
 
     if(req.cookies.isAdmin ===undefined)
-      res.render('MaladeNavigation/make_appointment', {error:false});
+      res.render('make_appointment', {error:false});
     else
       res.redirect('/home');
   }else{
@@ -76,7 +76,7 @@ app.get('/home/appointment', (req, res) => {
       res.redirect('login');
     }else{
     if (isAdmin === undefined) {
-        res.render('maladeNavigation/make_appointment', {error:false});
+        res.render('make_appointment', {error:false});
     } else {
         res.redirect('/home');
     }
@@ -143,7 +143,7 @@ app.get('/home/add-doctors',(req,res)=>{
   const isAdmin = req.cookies.isAdmin;
   
   if(isAdmin !==undefined){
-    res.render('adminNavigation/addDoctor', { error:false});
+    res.render('addDoctor', { error:false});
   }else{
     res.redirect('/login');
   }
@@ -153,7 +153,7 @@ app.get('/home/add-category',(req,res)=>{
   const isAdmin = req.cookies.isAdmin;
   
   if(isAdmin !==undefined){
-    res.render('adminNavigation/addCategory', { error:false});
+    res.render('addCategory', { error:false});
   }else{
       res.redirect('/login');
   }
@@ -163,7 +163,7 @@ app.get('/home/edit-clinic',(req,res)=>{
   const isAdmin = req.cookies.isAdmin;
   
   if(isAdmin !==undefined){
-    res.render('adminNavigation/edit', { error:false});
+    res.render('edit', { error:false});
   }else{
       res.redirect('/login');
   }
