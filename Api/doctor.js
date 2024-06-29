@@ -14,10 +14,10 @@ async function DoctorAuth(req, res) {
                 res.redirect('/home');
             }else{
 
-                res.render('Login', { error: true });
+                res.render('login', { error: true });
             }
         }else{
-            res.render('Login', { error: true });
+            res.render('login', { error: true });
         }
         
     } catch (error) {
