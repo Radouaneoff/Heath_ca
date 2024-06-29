@@ -4,6 +4,7 @@ async function ListDoctors(req,res){
 
     const isAdmin = req.cookies.isAdmin;
     const search = req.body.search;
+    console.log(search);
     if(isAdmin){
 
         try {
@@ -12,8 +13,9 @@ async function ListDoctors(req,res){
                 res.render('AdminNavigation/DoctorList', {data:data.rows});
                 console.log("main");
             }else{
-                console.log("e");
-                const data = await pool.query('SELECT * from doctors  fullname  %$1%',[search]);
+                const sql = "SELECT * FROM doctors WHERE fullname like '%"+search+"%'"
+                console.log(sql);
+                const data = await pool.query(sql);
                 res.render('AdminNavigation/DoctorList', {data:data.rows});
 
             }

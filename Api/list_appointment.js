@@ -7,7 +7,7 @@ async function List_appointment (req,res){
     if(req.cookies.isAdmin!==undefined){
         try {
             const result = await pool.query(
-                'SELECT * FROM appointment',
+                'SELECT * FROM appointment order by id DESC',
             );
             res.render('adminNavigation/ListOfAll',{data:result.rows});
         }
@@ -17,7 +17,6 @@ async function List_appointment (req,res){
     }else{
         if(req.cookies.isUser!==undefined){
             try {
-                
                 if(healthTopic === undefined || appointmentDay === undefined)
                     {
                         const result = await pool.query(

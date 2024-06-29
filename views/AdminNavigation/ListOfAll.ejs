@@ -45,6 +45,7 @@
           </div>
         </form>
           </div>
+          <% if(data.length > 0){ %>
             <% for(var i=0; i<10; i++){ %>
               <div class=" list_Card">
                   <div class="content-main">
@@ -60,6 +61,9 @@
                   </div>
               </div>
               <% } %>
+              <% }else{ %>
+                <h3 style="text-align: center;">There's no appointment that are display  </h3>
+                <% } %>
 
             </div>
             

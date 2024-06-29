@@ -14,12 +14,13 @@ async function Appointment (req,res){
                 [healthTopic]
             );
             if(available_doctors.rows.length>0){
-            const id_doc = available_doctors.rows[0].id;
-            const result = await pool.query(
-                'SELECT * FROM appointment WHERE health_category = $1 AND date_appointment = $2',
-                [healthTopic, appointmentDay]
-            );
-            if (result.rows.length < 1) {
+                const id_doc = available_doctors.rows[0].id;
+                const result = await pool.query(
+                    'SELECT * FROM appointment WHERE health_category = $1 AND date_appointment = $2',
+                    [healthTopic, appointmentDay]
+                );
+                console.log("VALABLE");
+            if (result.rows.length < 20) {
                 await pool.query('SELECT make_appointment ($1, $2, $3, $4, $5, $6)', [Rand_gen(),id_doc, req.cookies.idUser, healthTopic, appointmentDay, message]);
                 res.render('maladeNavigation/make_appointment', { error: false});  
             }
@@ -30,7 +31,6 @@ async function Appointment (req,res){
              else{
                 res.render('maladeNavigation/make_appointment', { error: true , errormsg:"we are sorry there isn't any  doctors available right now, please try later" });
              }
-
         } catch (err) {
             console.log(err);
             res.render('maladeNavigation/make_appointment', { error: true , errormsg:"Something went wrong, please try again"});
