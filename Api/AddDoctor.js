@@ -4,8 +4,6 @@ const Rand_gen = require("./generate");
 async function AddDoctor(req,res){
 
     const {fullname, phone, date, category, username, password, gender} = req.body;
-    console.log(req.body);
-    console.log(fullname);
     if(fullname !== '' && phone !== '' && gender !== '' && date !== '' && category !== '' && username !== '' && password !== '' ){
         try {
             
