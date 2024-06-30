@@ -87,6 +87,14 @@ app.get('/learn-more/:id', (req, res) => {
   const id = req.params.id;
   res.render(`learn-more${id}`);
 });
+app.get('/technologe', (req, res) => {
+  const id = req.params.id;
+  res.render(`technologe`);
+});
+app.get('/newshealth', (req, res) => {
+  const id = req.params.id;
+  res.render(`newshealth`);
+});
 
 
 
@@ -113,7 +121,6 @@ app.post("/appointment",(req, res)=>{
 });
 
 app.post("/home",(req, res)=>{
-  
   List_appointment(req,res)
 });
 app.post("/addDoctor",(req, res)=>{
